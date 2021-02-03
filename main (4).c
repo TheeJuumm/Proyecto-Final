@@ -52,7 +52,7 @@ int main()
                 printf("\n¿Los datos estan correctos? ");
                 gets(datos);
             }while(strcmp(datos, "no")==0);
-            checkNick=strstr(archivo, nickname);
+            /*checkNick=strstr(archivo, nickname);
             if(strcmp(nickname, checkNick)==0)
             {
                 do
@@ -61,7 +61,7 @@ int main()
                     gets(nickname);
                     checkNick=strstr(archivo, nickname);    
                 }while(strcmp(nickname, checkNick)==0);
-            }
+            }*/
             fprintf(archivo, "%s: %s: %s %s %s %s \n", nickname, contrasena, nombre, apellidoP, apellidoM, correo);
             //Se guarda primero el nickname y contraseña para tener un acceso mas facil a estos datos
              if(fclose(archivo)==0)//Se checa si se cerro bien el archivo al guardar los datos
