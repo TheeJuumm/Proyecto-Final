@@ -2,6 +2,7 @@
 #include <string.h>
 
 #define Menu "\nA que menu desea acceder \n\t1.Registro de Jugadores  \n\t2.Acceso al sistema  "
+#define MenuJ "\nA que menu desea accerder \n\t1.Conseguir puntos para jugar \n\t2.Consultar saldo de puntos \n\t3.Jugar a preguntas por tematica \n\t4.Jugar a preguntas de temas combinados \n\t5.Cerrar sesion"
 
 int main()
 {
@@ -65,8 +66,8 @@ int main()
             do
             {
                 fgets(cadena,100,archivo);
-                checkNick=strstr(cadena, nickname);//Se checa si el usuario ya existe y si existe debe repetir el registro
-                if(checkNick!=NULL)
+                checkNick=strstr(cadena, nickname);
+                if(checkNick!=NULL) //Se checa si el usuario ya existe y si existe debe repetir el registro
                 {
                     printf("Ese usuario ya existe");
                     break;
@@ -93,7 +94,33 @@ int main()
         }
         while(menu==2)
         {
-            
+            do//Se esta checando que lso datos introducidos esten en el sistema
+            {
+                printf("Cual es su usurario: ");
+                gets(nickname);
+                printf("Cual es su contraseña: ");
+                gets(contrasena);
+                fgets(cadena, 100, archivo);
+                checkNick=strstr(cadena, nickname);
+                if(checkNick==NULL)
+                {
+                    printf("Ese usuario no existe");
+                }
+                else
+                {
+                    checkContra=strstr(cadena, contrasena);
+                    if(checkNick!=NULL)
+                    {
+                        printf("Acceso concedido");
+                        break;
+                    }
+                    else
+                    {
+                        printf("Datos incorrectos porfavor vuelva a introducirlos");
+                    }
+                }
+            }while(feof(archivo)==0);
+            printf(MenuJ);
         }
     }
     else
