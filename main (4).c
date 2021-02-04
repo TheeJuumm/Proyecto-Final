@@ -8,9 +8,9 @@ int main()
 {
     FILE *archivo;
     char nombre[50]=" ", apellidoM[50]=" ", apellidoP[50]=" ", nickname[50]=" ",
-    contrasena[50]=" ", contrasena2[50]=" ", correo[50]=" ", datos[10]=" ", cadena[100]=" ";
+    contrasena[50]=" ", contrasena2[50]=" ", correo[50]=" ", datos[10]=" ", cadena[100]=" ", tecla;
     char  *checkContra, *checkNick;
-    int menu;
+    int menu, menuJ, puntos=0, costo;
     printf("Bienvenido al sistema");
     printf(Menu);
     scanf("%i", &menu); //Se le pregunta a que menu quiere ir
@@ -94,21 +94,23 @@ int main()
         }
         while(menu==2)
         {
-            do//Se esta checando que lso datos introducidos esten en el sistema
+            while(feof(archivo)==0)
             {
                 printf("Cual es su usurario: ");
+                setbuf(stdin, NULL);
                 gets(nickname);
                 printf("Cual es su contraseña: ");
+                setbuf(stdin, NULL);
                 gets(contrasena);
                 fgets(cadena, 100, archivo);
                 checkNick=strstr(cadena, nickname);
-                if(checkNick==NULL)
+                if(checkNick==NULL)//Se checa que en la cadena exista el nickname
                 {
                     printf("Ese usuario no existe");
                 }
                 else
                 {
-                    checkContra=strstr(cadena, contrasena);
+                    checkContra=strstr(cadena, contrasena);//Se checa que en la cadena exista la contraseña
                     if(checkNick!=NULL)
                     {
                         printf("Acceso concedido");
@@ -116,11 +118,47 @@ int main()
                     }
                     else
                     {
-                        printf("Datos incorrectos porfavor vuelva a introducirlos");
+                        do
+                        {//Si los introdujo mal aqui los puede volver a introducir hasta que los tenga correctos 
+                            printf("Datos incorrectos porfavor vuelva a introducirlos");
+                            printf("Cual es su usurario: ");
+                            gets(nickname);
+                            printf("Cual es su contraseña: ");
+                            gets(contrasena);
+                            checkNick=strstr(cadena, nickname);
+                            checkContra=strstr(cadena, contrasena);
+                        }while(checkNick!=NULL && checkContra!=NULL);
                     }
                 }
-            }while(feof(archivo)==0);
-            printf(MenuJ);
+            }
+            printf(MenuJ);//Se imprime el menu de jugador
+            scanf("%i", &menuJ);
+            switch(meunJ)
+            {
+                case 1://caso 1 donde se pueden comprar puntos
+                    printf("\nSe entro al menu Conseguir puntos para jugar");
+                    printf("\nSe le recuerda que se para jugar preguntas por tematica es necesario invertir 2 puntos");
+                    printf("\nSe le recuerda que para jugar preguntas combinadas es necesario invertir 4 puntos");
+                    printf("\nLos puntos cuestasn $5. ¿Cuantos  puntos desea comprar?");
+                    scanf("%i", &puntos);
+                    costo=puntos*5;
+                    printf("El costo fue %i, el cargo se le hara al correo asociado", costo);
+                break;
+                case 2//caso 2 donde se puede checar cuantos puntos tiene
+                    printf("\nSe entro al menu Consultar saldo de puntos");
+                    printf("\nActualmente el usuario %s tiene %i", nickname, puntos);
+                    printf("\nPresione una tecla para regresar al menu principal");
+                    scanf("%c", &tecla);
+                break;
+                case 3//caso 3 Se jugaran preguntas por tematica
+                    
+                break;
+                case 4//caso 4 Se jugaran preguntas con tematicas combinadas
+                    
+                break;
+                default//caso 5 Se cerrara la sesion y se regresara al menu principal
+                    
+            }
         }
     }
     else
@@ -129,5 +167,4 @@ int main()
     }
     return 0;
 }
-
 
